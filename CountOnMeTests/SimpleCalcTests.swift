@@ -1,4 +1,4 @@
-//
+// swiftlint:disable force_try force_cast
 //  SimpleCalcTests.swift
 //  SimpleCalcTests
 //
@@ -50,21 +50,21 @@ class SimpleCalcTests: XCTestCase {
 
     // MARK: - Verify cannot add unnecessary 0
 
-    func testGivenTextToComputeIsEmpty_WhenAdding0_ThenTextToComputeRemainsEmpty() {
+    func testGivenTextToComputeIsEmpty_WhenAdding0_ThenTextToComputeContains0() {
         calculator.add(number: 0)
 
-        checkOperationStringEqualsTo("")
+        checkOperationStringEqualsTo("0")
     }
 
-    func testGivenTextToComputeHasRelativeSign_WhenAdding0_ThenTextTocomputeRemainsEmpty() {
+    func testGivenTextToComputeHasRelativeSign_WhenAdding0_ThenTextToComputeContainsMinus0() {
         calculator.add(mathOperator: .minus)
 
         calculator.add(number: 0)
 
-        checkOperationStringEqualsTo("-")
+        checkOperationStringEqualsTo("-0")
     }
 
-    func testGivenTextToComputeHasIncompleteExpression_WhenAdding0_ThenTextTocomputeRemainsUnchanged() {
+    func testGivenTextToComputeHasIncompleteExpression_WhenAdding0_ThenTextToComputeRemainsUnchanged() {
         calculator.add(number: 1)
         calculator.add(mathOperator: .divide)
 
@@ -73,24 +73,42 @@ class SimpleCalcTests: XCTestCase {
         checkOperationStringEqualsTo("1 ÷ ")
     }
 
+    func testGivenTextToComputeContainsOnly0_WhenAdding0_ThenTextToComputeRemainsUnchanged() {
+        calculator.add(number: 0)
+
+        calculator.add(number: 0)
+
+        checkOperationStringEqualsTo("0")
+    }
+
+    func testGivenTextToComputeContains0AfterOperator_WhenAdding0_ThenTextToComputeRemainsUnchanged() {
+        calculator.add(number: 1)
+        calculator.add(mathOperator: .plus)
+        calculator.add(number: 0)
+
+        calculator.add(number: 0)
+
+        checkOperationStringEqualsTo("1 + 0")
+    }
+
     // MARK: - Verify validity of expression
 
     func testGivenTextToComputeIsEmpty_WhenCalculate_ThenThrowsErrorIncomplete() {
-        try? checkCalculatorError(.expressionIsIncomplete)
+        try! checkCalculatorError(.expressionIsIncomplete)
     }
 
     func testGivenTextToComputeExpressionIsNotCorrect_WhenCalculate_ThenThrowsErrorIncorrect() {
         calculator.add(number: -111)
         calculator.add(mathOperator: .plus)
 
-        try? checkCalculatorError(.expressionIsIncorrect)
+        try! checkCalculatorError(.expressionIsIncorrect)
     }
 
     func testGivenTextToComputeHasResult_WhenCalculateAgain_ThenAndThrowsErrorEqualSignFound() {
         addExpression(with: .plus)
-        try? calculator.calculate()
+        try! calculator.calculate()
 
-        try? checkCalculatorError(.equalSignFound)
+        try! checkCalculatorError(.equalSignFound)
     }
 
     // MARK: - Verify correctness of result for each operator
@@ -98,7 +116,7 @@ class SimpleCalcTests: XCTestCase {
     func testGivenTextToComputeHasCompleteExpressionOfAddidtion_WhenCalculate_ThenResultIs222() {
         addExpression(with: .plus)
 
-        try? calculator.calculate()
+        try! calculator.calculate()
 
         checkOperationStringEqualsTo("111 + 111 = 222")
     }
@@ -106,7 +124,7 @@ class SimpleCalcTests: XCTestCase {
     func testGivenTextToComputeHasCompleteExpressionOfSubstraction_WhenCalculate_ThenResultIs0() {
         addExpression(with: .minus)
 
-        try? calculator.calculate()
+        try! calculator.calculate()
 
         checkOperationStringEqualsTo("111 - 111 = 0")
     }
@@ -114,7 +132,7 @@ class SimpleCalcTests: XCTestCase {
     func testGivenTextToComputeHasCompleteExpressionOfMultiplication_WhenCalculate_ThenResultIs12321() {
         addExpression(with: .multiply)
 
-        try? calculator.calculate()
+        try! calculator.calculate()
 
         checkOperationStringEqualsTo("111 × 111 = 12,321")
     }
@@ -122,7 +140,7 @@ class SimpleCalcTests: XCTestCase {
     func testGivenTextToComputeHasCompleteExpressionOfDivision_WhenCalculate_ThenResultIs1() {
         addExpression(with: .divide)
 
-        try? calculator.calculate()
+        try! calculator.calculate()
 
         checkOperationStringEqualsTo("111 ÷ 111 = 1")
     }
@@ -135,7 +153,7 @@ class SimpleCalcTests: XCTestCase {
         calculator.add(number: 3)
         calculator.add(mathOperator: .divide)
         calculator.add(number: 2)
-        try? calculator.calculate()
+        try! calculator.calculate()
 
         checkOperationStringEqualsTo("111 + 111 × 3 ÷ 2 = 277.5")
     }
@@ -161,7 +179,7 @@ class SimpleCalcTests: XCTestCase {
 
     func testGivenTextToComputeHasResult_WhenClear_ThenTextToComputeIsEmpty() {
         addExpression(with: .plus)
-        try? calculator.calculate()
+        try! calculator.calculate()
 
         calculator.deleteLastElement()
 
@@ -180,7 +198,7 @@ class SimpleCalcTests: XCTestCase {
 
     func testGivenTextToComputeHasResult_WhenAddingNumber_ThenTextToComputeContainsNumber() {
         addExpression(with: .plus)
-        try? calculator.calculate()
+        try! calculator.calculate()
 
         calculator.add(number: 1)
 
@@ -189,7 +207,7 @@ class SimpleCalcTests: XCTestCase {
 
     func testGivenTextToComputeHasResult_WhenAddingRelativeSign_ThenTextToComputeContainsRelativeSign() {
         addExpression(with: .plus)
-        try? calculator.calculate()
+        try! calculator.calculate()
 
         calculator.add(mathOperator: .minus)
 
@@ -198,7 +216,7 @@ class SimpleCalcTests: XCTestCase {
 
     func testGivenTextToComputeHasResult_WhenAddingWrongOperator_ThenTextToComputeIsEmpty() {
         addExpression(with: .plus)
-        try? calculator.calculate()
+        try! calculator.calculate()
 
         calculator.add(mathOperator: .divide)
 
@@ -219,7 +237,7 @@ class SimpleCalcTests: XCTestCase {
 
     private func checkCalculatorError(_ err: CalculatorError) throws {
         XCTAssertThrowsError(try calculator.calculate(), "cannot calculate") { (error) in
-            let calculatorError = error as? CalculatorError
+            let calculatorError = error as! CalculatorError
             XCTAssertEqual(calculatorError, err)
         }
     }

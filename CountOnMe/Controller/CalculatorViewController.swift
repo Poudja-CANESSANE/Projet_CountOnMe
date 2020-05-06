@@ -57,7 +57,7 @@ class CalculatorViewController: UIViewController {
 
     // MARK: Properties
 
-    private var calculator = CalculatorImplementation()
+    private var calculator: Calculator = CalculatorImplementation()
 
     ///Returns true if the text of textView is empty or contains a relative sign
     ///in order to prevent starting with a wrong operator
