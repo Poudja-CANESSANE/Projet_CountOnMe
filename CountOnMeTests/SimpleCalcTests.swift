@@ -11,12 +11,10 @@ import XCTest
 
 class SimpleCalcTests: XCTestCase {
     var calculator: CalculatorImplementation!
-    var cleaner: CleanerImplementation!
     var calculatorDelegateMock: CalculatorDelegateMock!
 
     override func setUp() {
         super.setUp()
-        cleaner = CleanerImplementation()
         calculatorDelegateMock = CalculatorDelegateMock()
         calculator = CalculatorImplementation()
         calculator.delegate = calculatorDelegateMock

@@ -33,7 +33,7 @@ class CalculatorImplementation: Calculator {
         if isStartingWithWrongOperator(mathOperator: mathOperator) { return }
         if textToCompute.isEmpty {
             textToCompute.append(mathOperator.symbol)
-        } else if textToCompute == "0" || textToComputeHasRelativeSign {
+        } else if textToComputeHasRelativeSign || textToCompute == "0" {
             textToCompute = String(textToCompute.dropLast())
             textToCompute.append(mathOperator.symbol)
         } else if expressionIsCorrect {
@@ -124,6 +124,7 @@ class CalculatorImplementation: Calculator {
         elements.count >= 3
     }
 
+    ///Checks if we can add a 0 by controlling the last and the before last characters of textToCompute
     private var isAddingUnnecessaryZero: Bool {
         //To check the before last character of textToCompute
         var text = textToCompute
@@ -140,11 +141,6 @@ class CalculatorImplementation: Calculator {
     ///Checks if there is only a plus or minus sign in textToCompute
     private var textToComputeHasRelativeSign: Bool {
         textToCompute == MathOperator.plus.symbol || textToCompute == MathOperator.minus.symbol
-    }
-
-    ///Returns the given Float without .0 if it is a natural number
-    private func format(number: Float) -> String {
-        NumberFormatter.localizedString(from: NSNumber(value: number), number: .decimal)
     }
 
 
@@ -215,5 +211,10 @@ class CalculatorImplementation: Calculator {
     private func replaceOperationByResult(in array: inout [String], at index: Int, with result: Float) {
         for _ in 1...3 { array.remove(at: index - 1) }
         array.insert("\(result)", at: index - 1)
+    }
+
+    ///Returns the given Float without .0 if it is a natural number
+    private func format(number: Float) -> String {
+        NumberFormatter.localizedString(from: NSNumber(value: number), number: .decimal)
     }
 }
