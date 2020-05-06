@@ -23,7 +23,7 @@ You can add operators and replace them by another.
 <img src="P5Operators.gif" alt="drawing" width="200">
 
 ## Clear
-You can clear a caracter or the whole expression.  
+You can clear a character or the whole expression.  
 When there is already a result and you tap on the ⌫ button, the whole expression will be cleared.
 
 <img src="P5Clear.gif" alt="drawing" width="200">
@@ -34,10 +34,11 @@ You cannot start an expression with a wrong operator even when there is a result
 <img src="P5WrongOperator.gif" alt="drawing" width="200">
 
 ## Cannot add unnecessary 0
-That means you cannot add 0 at the start of the expression or after an operator.  
+That means you cannot add two following 0 at the start of the expression or after an operator.  
+Moreover you cannot add a 0 after division sign.  
 Thus division by 0 is impossible.
 
-<img src="P5Unnecessary0.gif" alt="drawing" width="200">
+<img src="P5UnnecessaryZero.gif" alt="drawing" width="200">
 
 ## Alert are presented when the expression is invalid
 They are presented when:
