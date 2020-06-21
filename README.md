@@ -1,5 +1,5 @@
 # CountOnMe
-This project is the fourth of the iOS Developer path from OpenClassrooms.  
+This project is the fifth of the iOS Developer path from OpenClassrooms.  
 I had to improve an existing app called CountOnMe, a basic calculator, by implementing the multiplication and the division.  
 Consequently I also had to handle them according to order of operations.
 
